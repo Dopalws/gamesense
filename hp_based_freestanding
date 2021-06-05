@@ -1,0 +1,22 @@
+--[[
+    HP Based Freestanding
+
+    - If your health is below the amount on the slider freestanding will be disabled
+]]
+
+local hpbase_button = ui.new_checkbox("AA", "Anti-aimbot angles", "HP Based Freestanding")
+local hpbase_slider = ui.new_slider("AA", "Anti-aimbot angles", "Disabler HP", 1, 100, 1, true, "hp")
+
+local freestanding = ui.reference("AA", "Anti-aimbot angles", "Freestanding")
+
+client.set_event_callback("paint_ui", function()
+    local local_hp = entity.get_prop(entity.get_local_player(), "m_iHealth")
+
+    if ui.get(hpbase_button) then
+        if ui.get(hpbase_slider) > local_hp then
+            ui.set(freestanding, "-")
+        else
+            ui.set(freestanding, "Default")
+        end
+    end
+end)
