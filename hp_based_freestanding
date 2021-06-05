@@ -1,22 +1,24 @@
 --[[
     HP Based Freestanding
-
-    - If your health is below the amount on the slider freestanding will be disabled
+    - This allows you to disable freestanding if your health is below the number on the slider.
+    - I created this before my conditions lua so that is why it is a thread.
 ]]
 
-local hpbase_button = ui.new_checkbox("AA", "Anti-aimbot angles", "HP Based Freestanding")
-local hpbase_slider = ui.new_slider("AA", "Anti-aimbot angles", "Disabler HP", 1, 100, 1, true, "hp")
+local tab, container = 'AA', 'Anti-aimbot angles'
 
-local freestanding = ui.reference("AA", "Anti-aimbot angles", "Freestanding")
+local hpbase_button = ui.new_checkbox(tab, container, 'HP Based Freestanding')
+local hpbase_slider = ui.new_slider(tab, container, 'Disabler HP', 1, 100, 1, true, 'hp')
 
-client.set_event_callback("paint_ui", function()
-    local local_hp = entity.get_prop(entity.get_local_player(), "m_iHealth")
+local freestanding = ui.reference(tab, container, 'Freestanding')
+
+client.set_event_callback('paint_ui', function()
+    local local_hp = entity.get_prop(entity.get_local_player(), 'm_iHealth')
 
     if ui.get(hpbase_button) then
+        ui.set(freestanding, 'Default')
+
         if ui.get(hpbase_slider) > local_hp then
-            ui.set(freestanding, "-")
-        else
-            ui.set(freestanding, "Default")
+            ui.set(freestanding, '-')
         end
     end
 end)
