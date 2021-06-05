@@ -13,6 +13,8 @@ local slow_motion, slow_motion_key = ui.reference(tab, 'Other', 'Slow motion')
 local freestanding_disablers = ui.new_multiselect(tab, container, 'Freestanding disablers', 'Jumping', 'Crouching', 'Moving', 'Slow motion', 'Duck peek assist')
 
 local function get_player_state()
+    if entity.get_local_player() == nil then return end
+
     local vx, vy = entity.get_prop(entity.get_local_player(), 'm_vecVelocity')
     local player_standing = math.sqrt(vx ^ 2 + vy ^ 2) < 2
 	local player_jumping = bit.band(entity.get_prop(entity.get_local_player(), 'm_fFlags'), 1) == 0
@@ -37,6 +39,8 @@ local function get_player_state()
 end
 
 client.set_event_callback('paint_ui', function()
+    if entity.get_local_player() == nil then return end
+    
     ui.set(freestanding, 'Default')
 
     if contains(ui.get(freestanding_disablers), 'Jumping') then
