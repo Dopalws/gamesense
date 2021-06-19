@@ -2,6 +2,7 @@ local override_zoom_fov = ui.reference('MISC', 'Miscellaneous', 'Override zoom F
 local override_zoom_fov_slider = ui.new_slider('MISC', 'Miscellaneous', 'Override zoom FOV on second scope', 0, 100, 0, true, '%', 1)
 
 client.set_event_callback('paint', function()
+    local ent = entity.get_local_player()
     local weapon = entity.get_player_weapon(ent)
     local prop = entity.get_prop(weapon, 'm_zoomLevel')
 
