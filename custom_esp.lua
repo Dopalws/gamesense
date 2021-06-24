@@ -49,15 +49,16 @@ local function on_paint()
             -- Health
             if ui.get(health) then
                 local enemy_health = entity.get_prop(enemy_players, "m_iHealth")
-                local percentage = enemy_health/100
                 local height = y2 - y1 + 2
                 local y1 = y1 - 1
-                local width = x2 - x1
-                local leftside = x1 - 5
                 local r, g, b, a = ui.get(health_color)
 
                 renderer.rectangle(x1 - 6, y1, 4, y2 - y1, 0, 0, 0, a/2)
-                renderer.rectangle(x1 - 5, math.ceil(y2-(height*percentage))+2, 2, math.floor(height*percentage) - 2, r, g, b, a)
+                renderer.rectangle(x1 - 5, math.ceil(y2-(height*enemy_health/100))+2, 2, math.floor(height*enemy_health/100) - 2, r, g, b, a)
+
+                if enemy_health < 100 then
+                    renderer.text(x1- 5 - 2, y2-(height*enemy_health/100)+2, 255, 255, 255, 255, "-c", 0, enemy_health)
+                end
             end
 
             -- Weapon
