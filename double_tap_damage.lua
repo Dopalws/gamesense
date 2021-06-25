@@ -38,6 +38,10 @@ local function on_run_command()
 	local weapon_idx = entity.get_prop(weapon_ent, "m_iItemDefinitionIndex")
 	local weapon = csgo_weapons[weapon_idx]
 
+	if closest_entity == nil or closest_entity_health == nil then return end
+	if local_player == nil or not entity.is_alive(local_player) then return end
+	if weapon == nil then return end
+
 	if weapon.name == 'SCAR-20' or weapon.name == 'G3SG1' then
 		if anti_aim.get_double_tap() then
 			ui.set(minimum_damage, closest_entity_health/2)
